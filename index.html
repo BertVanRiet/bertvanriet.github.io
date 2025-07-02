@@ -2,24 +2,26 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Bert Van Riet</title>
+    <title>Full-screen video</title>
     <style>
         html, body {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
-            background-color: black;
-            font-family: Arial, sans-serif;
+            background: black;
         }
 
-        iframe {
+        video {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            border: none;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
             z-index: 0;
         }
 
@@ -33,15 +35,18 @@
             font-weight: bold;
             text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
             z-index: 1;
-            pointer-events: none; /* zorgt dat klikken naar de video gaat */
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
- <iframe width="996" height="560" src="https://www.youtube.com/embed/5VGLzhHHy8k" 
-     title="portfolio achtergrond" frameborder="0" allow="accelerometer; 
-     autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+    <video autoplay muted loop playsinline>
+        <source src="header.mp4" type="video/mp4">
+        Je browser ondersteunt geen HTML5 video.
+    </video>
+
     <div class="overlay-text">Bert Van Riet</div>
+
 </body>
 </html>
