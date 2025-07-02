@@ -7,8 +7,7 @@
 @font-face {
     font-family: 'LicensePlate';
     src: url('fonts/LicensePlate-j9eO.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;}
+   }
         
         html, body {
             margin: 0;
@@ -31,19 +30,19 @@
             z-index: 0;
         }
 
-        .overlay-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 4vw;
-           
-            font: 'LicensePlate';
-            
-            z-index: 1;
-            pointer-events: none;
-        }
+       .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'LicensePlate', sans-serif;
+    font-size: 4vw;
+    font-weight: bold;
+    color: white;
+    z-index: 1;
+    pointer-events: none;
+}
+
     </style>
 </head>
 <body>
