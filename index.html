@@ -102,10 +102,7 @@
     border-radius: 12px;
 }
 
-.youtube-video {
-    position: relative;
-    width: calc(50% - 10px); /* 2 naast elkaar met gap */
-    padding-top: 56.25%; /* 16:9 aspect ratio */
+
 }
 
 .youtube-video iframe {
@@ -140,6 +137,18 @@
         object-position: center center;
     }
 }
+        .video-row .youtube-video {
+    position: relative;
+    width: calc(50% - 10px); /* 2 naast elkaar met gap */
+    padding-top: 56.25%; /* 16:9 */
+}
+
+.content-below > .youtube-video {
+    width: 100%;
+    padding-top: 56.25%;
+    max-width: 100%;
+    margin: 0 auto;
+}
     </style>
 </head>
 <body>
@@ -155,6 +164,7 @@
     </header>
 
     <!-- Scrollable content with YouTube video -->
+   <div class="content-below">
     <div class="video-row">
     <div class="youtube-video">
         <iframe src="https://www.youtube.com/embed/uWyOoURfJVA"
@@ -198,6 +208,7 @@
             
         </div>
     </div>
+</div>
 <script>
 function scrollToVideos() {
     const section = document.querySelector('.content-below');
