@@ -95,22 +95,20 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    background-color: #111;
-    padding: 20px;
-    border-radius: 12px;
-    margin: 40px auto;
     max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #111;
+    border-radius: 12px;
 }
 
-.video-row .youtube-video {
-    flex: 1 1 45%;
-    aspect-ratio: 16 / 9;
+.youtube-video {
     position: relative;
-    min-width: 300px;
-    max-width: 100%;
+    width: calc(50% - 10px); /* 2 naast elkaar met gap */
+    padding-top: 56.25%; /* 16:9 aspect ratio */
 }
 
-.video-row .youtube-video iframe {
+.youtube-video iframe {
     position: absolute;
     top: 0;
     left: 0;
@@ -118,7 +116,12 @@
     height: 100%;
     border: none;
 }
-
+        @media (max-width: 768px) {
+    .youtube-video {
+        width: 100%;
+        padding-top: 56.25%;
+    }
+}
     </style>
 </head>
 <body>
