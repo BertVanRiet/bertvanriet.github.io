@@ -90,6 +90,34 @@
 .scroll-button:hover {
     background-color: #e0e0e0;
 }
+.video-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 40px auto;
+    max-width: 1200px;
+}
+
+.video-row .youtube-video {
+    flex: 1 1 45%;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    min-width: 300px;
+    max-width: 100%;
+}
+
+.video-row .youtube-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
 
     </style>
 </head>
@@ -106,13 +134,27 @@
     </header>
 
     <!-- Scrollable content with YouTube video -->
-    <div class="content-below">
-        <div class="youtube-video">
-            <iframe src="https://www.youtube.com/embed/uWyOoURfJVA" 
-                title="" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    <div class="video-row">
+    <div class="youtube-video">
+        <iframe src="https://www.youtube.com/embed/uWyOoURfJVA"
+            title=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+    </div>
+
+    <div class="youtube-video">
+        <iframe src="https://www.youtube.com/embed/cvd69bk5qXo"
+            title="CHASE"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+    </div>
+</div>
+    
+  
 
          <div class="youtube-video">
             <iframe src="https://www.youtube.com/embed/igxOiilorfk" 
@@ -123,15 +165,7 @@
             </iframe>
             
         </div>
-        <div class="youtube-video">
-            <iframe src="https://www.youtube.com/embed/cvd69bk5qXo" 
-                    title="CHASE" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen 
-                    referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-            
-        </div>
+      
        
         <div class="youtube-video">
             <iframe src="https://www.youtube.com/embed/cvd69bk5qXo" 
