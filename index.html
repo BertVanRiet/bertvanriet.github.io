@@ -4,210 +4,248 @@
     <meta charset="UTF-8">
     <title>portfolio van Bert</title>
     <style>
-       @font-face {
-    font-family: 'LicensePlate';
-    src: url('LicensePlate-j9eO.ttf') format('truetype');
-}
+        @font-face {
+            font-family: 'LicensePlate';
+            src: url('LicensePlate-j9eO.ttf') format('truetype');
+        }
 
-html, body {
-    margin: 0;
-    padding: 0;
-    overflow: auto;
-    background: black;
-}
+        /* Basis instellingen voor het hele scherm */
+        html, body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
 
-/* Fullscreen header video */
-header {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    overflow: hidden;
-}
+        /* SCHERMVAK 1: Fullscreen header video (ongewijzigd) */
+        header {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
 
-header video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
+        header video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
 
-/* Overlay tekst */
-.overlay-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 8vw;
-    font-family: 'LicensePlate', sans-serif;
-    color: black;
-    z-index: 2;
-    pointer-events: none;
-}
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8vw;
+            font-family: 'LicensePlate', sans-serif;
+            color: black;
+            z-index: 2;
+            pointer-events: none;
+        }
 
-/* Scrollknop */
-.scroll-button {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 12px 24px;
-    font-size: 1rem;
-    background-color: white;
-    color: black;
-    border: none;
-    cursor: pointer;
-    border-radius: 6px;
-    z-index: 3;
-    transition: background-color 0.3s ease;
-}
+        .scroll-button {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            font-size: 1rem;
+            background-color: white;
+            color: black;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            z-index: 3;
+            transition: background-color 0.3s ease;
+        }
 
-.scroll-button:hover {
-    background-color: #e0e0e0;
-}
+        .scroll-button:hover {
+            background-color: #e0e0e0;
+        }
 
-/* Content onder header */
-.content-below {
-    padding: 60px 20px;
-    background: black;
-    text-align: center;
-}
+        /* SCHERMVAK 2: Volledig scherm onder de header */
+        .content-section {
+            height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 20px;
+            background: black;
+        }
 
-/* Video's in rijen */
-.video-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #111;
-    border-radius: 12px;
-}
+        /* Sectie titel */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 0 0 20px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
 
-.video-row .youtube-video {
-    position: relative;
-    width: calc(50% - 10px); /* twee naast elkaar */
-    padding-top: 56.25%; /* 16:9 */
-}
+        /* Horizontaal scrollbare container voor video's */
+        .video-scroll-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            /* Verberg standaard scrollbar voor strakke look (optioneel) */
+            -webkit-overflow-scrolling: touch;
+        }
 
-/* Algemene YouTube embed */
-.youtube-video {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-    padding-top: 56.25%;
-}
+        /* Styling van de video scrollbar */
+        .video-scroll-container::-webkit-scrollbar {
+            height: 8px;
+        }
+        .video-scroll-container::-webkit-scrollbar-track {
+            background: #111;
+        }
+        .video-scroll-container::-webkit-scrollbar-thumb {
+            background: #555;
+            border-radius: 4px;
+        }
 
-.youtube-video iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
+        /* Elke video container in de rij */
+        .youtube-video-card {
+            flex: 0 0 450px; /* Vaste breedte per video */
+            scroll-snap-align: start;
+            background-color: #111;
+            border-radius: 8px;
+            overflow: hidden;
+        }
 
-/* Mobiele weergave */
-@media (max-width: 768px) {
-    .overlay-text {
-        font-size: 10vw;
-        padding: 0 10px;
-        text-align: center;
-        line-height: 1.2;
-    }
+        /* Zorgt voor de juiste 16:9 verhouding van de video */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
 
-    .scroll-button {
-        font-size: 3rem;
-        padding: 10px 20px;
-    }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
 
-    .youtube-video,
-    .video-row .youtube-video {
-        width: 100%;
-        padding-top: 56.25%;
-    }
-}
-   
+        /* Tekstvak onderaan het scherm */
+        .description-box {
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+            text-align: center;
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        .description-box p {
+            margin: 0;
+            line-height: 1.6;
+            color: #ccc;
+            font-size: 1.1rem;
+        }
+
+        /* Mobiele optimalisatie */
+        @media (max-width: 768px) {
+            .overlay-text {
+                font-size: 10vw;
+            }
+
+            .scroll-button {
+                font-size: 1.5rem;
+                padding: 10px 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .youtube-video-card {
+                flex: 0 0 85vw; /* Video's vullen bijna het hele scherm op mobiel */
+            }
+
+            .content-section {
+                height: auto; /* Op mobiel mag het meescrollen als het scherm te klein is */
+                padding: 40px 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Fullscreen video -->
+    <!-- SCHERMVAK 1: Fullscreen video -->
     <header>
         <video autoplay muted loop playsinline preload="auto">
             <source src="header.mp4" type="video/mp4">
             Je browser ondersteunt geen HTML5 video.
         </video>
         <div class="overlay-text">Bert Van Riet</div>
-        <button class="scroll-button" onclick="scrollToVideos()">↓</button>
+        <button class="scroll-button" onclick="scrollToSection()">↓</button>
     </header>
 
-    <!-- Scrollable content with YouTube video -->
-   <div class="content-below">
-       
-    <div class="video-row">
-    <div class="youtube-video">
-        <iframe src="https://www.youtube.com/embed/uWyOoURfJVA"
-            title=""
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen></iframe>
+    <!-- SCHERMVAK 2: School opdrachten -->
+    <div class="content-section" id="school-section">
+        
+        <h2 class="section-title">School opdrachten</h2>
+        
+        <!-- Scrollbare rij met alle 5 de video's -->
+        <div class="video-scroll-container">
+            
+            <div class="youtube-video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="youtube-video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" title="CHASE" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="youtube-video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" title="How to clear your mind" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="youtube-video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" title="Op een klein planeetje" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="youtube-video-card">
+                <div class="video-wrapper">
+                    <iframe src="https://youtube.com" title="SERAX" allowfullscreen></iframe>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tekstvak onderaan -->
+        <div class="description-box">
+            <p>Hier kun je je eigen uitleg typen over de schoolopdrachten. Vertel bijvoorbeeld over je rol in de projecten, de software die je hebt gebruikt, of wat de opdracht precies inhield.</p>
+        </div>
+
     </div>
 
-    <div class="youtube-video">
-        <iframe src="https://www.youtube.com/embed/cvd69bk5qXo"
-            title="CHASE"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen></iframe>
-    </div>
-</div>
-    
-  
-
-         <div class="youtube-video">
-            <iframe src="https://www.youtube.com/embed/igxOiilorfk" 
-                    title="How to clear your mind" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen 
-                    referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-            
-        </div>
-      
-          <div class="youtube-video">
-            <iframe src="https://youtube.com/embed/U7FM-jfayOw" title="Op een klein planeetje" 
-                    
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen 
-                    referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-            
-        </div>
-        <div class="youtube-video">
-            <iframe src="https://www.youtube.com/embed/qlVR2w7GwPE" title="Serax" 
-                    title="SERAX" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                    allowfullscreen 
-                    referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-            
-        </div>
-    </div>
-</div>
-<script>
-function scrollToVideos() {
-    const section = document.querySelector('.content-below');
-    section.scrollIntoView({ behavior: 'smooth' });
-}
-</script>
+    <script>
+    function scrollToSection() {
+        const section = document.getElementById('school-section');
+        section.scrollIntoView({ behavior: 'smooth' });
+    }
+    </script>
   
 </body>
 </html>
