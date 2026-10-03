@@ -1,40 +1,84 @@
+```html
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
-    <title>portfolio van Bert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Portfolio van Bert</title>
+
     <style>
+
+        /* =====================================================
+           FONT
+        ===================================================== */
+
         @font-face {
             font-family: 'LicensePlate';
             src: url('LicensePlate-j9eO.ttf') format('truetype');
         }
 
-        /* Basis instellingen voor het hele scherm */
-        html, body {
+
+        /* =====================================================
+           BASIS
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
             margin: 0;
             padding: 0;
-            background-color: #333333;
+            background: #333333;
             color: white;
             font-family: Arial, sans-serif;
             overflow-x: hidden;
         }
 
-        /* SCHERMVAK 1: Fullscreen header video (ongewijzigd) */
+
+        /* =====================================================
+           TYPOGRAFIE
+        ===================================================== */
+
+        h1 {
+            margin: 0 0 20px 0;
+            font-family: 'LicensePlate', sans-serif;
+            font-size: clamp(38px, 5vw, 72px);
+            font-weight: normal;
+            line-height: 0.95;
+            color: #111111;
+        }
+
+        p {
+            margin: 0 0 30px 0;
+            max-width: 850px;
+            font-size: 17px;
+            line-height: 1.6;
+            color: #222222;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
         header {
             position: relative;
-            height: 100vh;
             width: 100%;
+            height: 100vh;
+            min-height: 600px;
             overflow: hidden;
         }
 
         header video {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: 1;
         }
 
         .overlay-text {
@@ -42,103 +86,690 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 8vw;
+
             font-family: 'LicensePlate', sans-serif;
+            font-size: clamp(70px, 12vw, 180px);
+            line-height: 0.8;
+            white-space: nowrap;
+
             color: black;
             z-index: 2;
+
             pointer-events: none;
         }
+
+
+        /* =====================================================
+           SCROLL BUTTON
+        ===================================================== */
 
         .scroll-button {
             position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 12px 24px;
-            font-size: 1rem;
-            background-color: white;
-            color: black;
+
+            width: 55px;
+            height: 55px;
+
             border: none;
+            border-radius: 50%;
+
+            background: white;
+            color: black;
+
+            font-size: 25px;
+
             cursor: pointer;
-            border-radius: 6px;
             z-index: 3;
-            transition: background-color 0.3s ease;
+
+            transition:
+                transform 0.25s ease,
+                background 0.25s ease;
         }
 
         .scroll-button:hover {
-            background-color: #e0e0e0;
+            background: #eeeeee;
+            transform: translateX(-50%) translateY(-4px);
         }
 
-      
+
+        /* =====================================================
+           PROJECT SECTIES
+        ===================================================== */
+
+        .project {
+            margin: 40px 40px 80px 0;
+            padding: 40px;
+
+            background: #cccccc;
+            color: #111111;
         }
 
-      
-@font-face {
-  font-family: 'LicensePlate';
-  src: url('LicensePlate-j9eO.ttf') format('truetype');
+        .project-header {
+            margin-bottom: 35px;
+        }
+
+
+        /* =====================================================
+           VIDEO TOOLI
+        ===================================================== */
+
+        .single-video {
+            width: 100%;
+            display: block;
+            margin: 0;
+        }
+
+
+        /* =====================================================
+           VIDEO GRID
+        ===================================================== */
+
+        .video-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            display: flex;
+            gap: 20px;
+
+            flex: 1;
+            min-width: 0;
+        }
+
+        .video-container video {
+            width: calc((100% - 40px) / 3);
+            aspect-ratio: 1 / 1;
+
+            object-fit: cover;
+
+            transition:
+                filter 0.4s ease,
+                transform 0.4s ease;
+        }
+
+
+        /* =====================================================
+           PIJLEN
+        ===================================================== */
+
+        .video-arrow {
+            flex: 0 0 52px;
+
+            width: 52px;
+            height: 52px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: white;
+            color: black;
+
+            font-size: 28px;
+            line-height: 1;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .video-arrow:hover {
+            background: #eeeeee;
+            transform: scale(1.08);
+        }
+
+
+        /* =====================================================
+           YOUTUBE VIDEO'S
+        ===================================================== */
+
+        .youtube-grid {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .youtube-grid iframe {
+            flex: 1;
+            width: 50%;
+            aspect-ratio: 16 / 9;
+
+            border: none;
+            display: block;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 800px) {
+
+            header {
+                min-height: 500px;
+            }
+
+            .overlay-text {
+                white-space: normal;
+                text-align: center;
+                width: 90%;
+            }
+
+            .project {
+                margin: 20px 20px 50px 0;
+                padding: 25px;
+            }
+
+            .video-arrow {
+                flex: 0 0 42px;
+                width: 42px;
+                height: 42px;
+                font-size: 22px;
+            }
+
+            .video-container {
+                gap: 10px;
+            }
+
+            .video-container video {
+                width: calc((100% - 20px) / 3);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .project {
+                margin-right: 0;
+                padding: 20px;
+            }
+
+            .video-row {
+                gap: 8px;
+            }
+
+            .video-container {
+                gap: 8px;
+            }
+
+            .video-container video {
+                width: calc((100% - 16px) / 3);
+            }
+
+            .youtube-grid {
+                flex-direction: column;
+            }
+
+            .youtube-grid iframe {
+                width: 100%;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header id="top">
+
+    <video autoplay muted loop playsinline preload="auto">
+        <source src="header.mp4" type="video/mp4">
+        Je browser ondersteunt geen HTML5 video.
+    </video>
+
+    <div class="overlay-text">
+        Bert Van Riet
+    </div>
+
+    <button class="scroll-button" onclick="scrollToSection()">
+        ↓
+    </button>
+
+</header>
+
+
+
+<!-- =========================================================
+     ONDERDAK
+========================================================= -->
+
+<section class="project">
+
+    <div class="project-header">
+
+        <h1>
+            Onderdak - documentair portret
+        </h1>
+
+        <p>
+            Dit is een documentaire die ik maakte over de leefgemeenschap
+            "De Bereklauw". Dit is een project waar ik alleen aan werkte
+            van idee tot afwerking in de montage.
+        </p>
+
+    </div>
+
+
+    <div style="
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        overflow: hidden;
+    ">
+
+        <iframe
+            src="https://www.youtube.com/embed/9otZL3wAGsg?rel=0"
+            style="
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                border: 0;
+            "
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TOOLI CONNECTION TOUR
+========================================================= -->
+
+<section>
+
+    <h1 style="margin: 0 40px 20px 20px;">
+        2D - Motion graphics - Tooli Connection Tour
+    </h1>
+
+    <div class="project">
+
+        <video
+            class="single-video"
+            src="tooliVid1.mp4"
+            autoplay
+            muted
+            loop
+            playsinline>
+        </video>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     EVENT WIFI
+========================================================= -->
+
+<section>
+
+    <h1 style="margin: 0 40px 20px 20px;">
+        2D - Motion graphics - Event Wifi
+    </h1>
+
+
+    <div class="project">
+
+
+        <!-- RIJ 1 -->
+
+        <div class="video-row">
+
+            <button
+                class="video-arrow"
+                onclick="previousVideo1()">
+                ←
+            </button>
+
+
+            <div
+                id="videoContainer1"
+                class="video-container">
+
+                <video
+                    src="11.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="12.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="13.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+            </div>
+
+
+            <button
+                class="video-arrow"
+                onclick="nextVideo1()">
+                →
+            </button>
+
+        </div>
+
+
+
+        <!-- RIJ 2 -->
+
+        <div class="video-row">
+
+            <button
+                class="video-arrow"
+                onclick="previousVideo2()">
+                ←
+            </button>
+
+
+            <div
+                id="videoContainer2"
+                class="video-container">
+
+                <video
+                    src="22.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="23.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="24.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+            </div>
+
+
+            <button
+                class="video-arrow"
+                onclick="nextVideo2()">
+                →
+            </button>
+
+        </div>
+
+
+
+        <!-- RIJ 3 -->
+
+        <div class="video-row">
+
+            <button
+                class="video-arrow"
+                onclick="previousVideo3()">
+                ←
+            </button>
+
+
+            <div
+                id="videoContainer3"
+                class="video-container">
+
+                <video
+                    src="33.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="34.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+                <video
+                    src="35.mp4"
+                    autoplay
+                    muted
+                    loop
+                    playsinline>
+                </video>
+
+            </div>
+
+
+            <button
+                class="video-arrow"
+                onclick="nextVideo3()">
+                →
+            </button>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SCHOOL OPDRACHTEN
+========================================================= -->
+
+<section class="project">
+
+    <h1>
+        School opdrachten
+    </h1>
+
+    <p>
+        Dit zijn twee schoolopdrachten die in groep gemaakt zijn.
+        Ik stond bij beide projecten in voor het beeld; van het maken
+        van een shotlist of storyboard tot het camerawerk.
+    </p>
+
+
+    <div class="youtube-grid">
+
+        <iframe
+            src="https://www.youtube.com/embed/uWyOoURfJVA"
+            allowfullscreen>
+        </iframe>
+
+        <iframe
+            src="https://www.youtube.com/embed/cvd69bk5qXo"
+            allowfullscreen>
+        </iframe>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+
+/* =========================================================
+   SCROLL
+========================================================= */
+
+function scrollToSection() {
+
+    window.scrollTo({
+        top: window.innerHeight,
+        behavior: "smooth"
+    });
+
 }
 
 
-</style>
-    
-</head>
-<body>
 
-    <!-- ------------------------------------------------------------------------------------------------------>
-    <header>
-        <video autoplay muted loop playsinline preload="auto">
-            <source src="header.mp4" type="video/mp4">
-            Je browser ondersteunt geen HTML5 video.
-        </video>
-        <div class="overlay-text">Bert Van Riet</div>
-        <button class="scroll-button" onclick="scrollToSection()">↓</button>
-    </header>
+/* =========================================================
+   VIDEO NAVIGATIE
+========================================================= */
 
-    <!------------------------------------------------------------------------------------------------------------------------>
+function setupVideoRow(containerId) {
 
-    <div style=" style="background-color: #CCCCCC; margin: 40px 40px 40px 0px;">
-    <h1 style="margin: 20px 0 20px 20px;">Onderdak - documentair portret</h1>
-    <p style="margin: 20px 0 20px 20px;">Dit is een documentaire die ik maakte over de leefgemeenschap "De Bereklauw". Dit is een project waar ik alleen aan werkte van idee tot afwerking in de montage.</p>
-<div style="left:0;width:100%;height:0;position:relative;padding-bottom:56.25%;margin: 20px 20px 20px 20px; "><iframe src="https://www.youtube.com/embed/9otZL3wAGsg?rel=0" style="top:0;left:0;width:100%;height:100%;position:absolute;border:0" allowfullscreen scrolling="no" allow="accelerometer *; clipboard-write *; encrypted-media *; gyroscope *; picture-in-picture *; web-share *;" referrerpolicy="strict-origin"></iframe></div>
-    </div>
-        
-        <!---------------------------------------------------------------------------------------------------------------------->   
-    <div>
-      <h1 style="margin: 20px 20px 40px 20px;">2D - Motion graphics - Tooli Connection Tour</h1>
-    <div  style="background-color: #CCCCCC; margin: 40px 40px 40px 0px;">
- 
-    <video src="tooliVid1.mp4" autoplay muted loop playsinline style=" display: block; width: calc(100% - 40px); margin: 20px; height: auto; "> </video>
-    </div>
-</div>
-<!------------------------------------------------------------------------------------------------------------------------------>
-        <div>
-      <h1 style="margin: 20px 20px 40px 20px;">2D - Motion graphics - Event Wifi</h1>
-    <div  style="background-color: #CCCCCC; margin: 40px 40px 40px 0px;">
-   <div style="display: flex; align-items: center; gap: 15px; padding: 20px; box-sizing: border-box; width: 100%;"> <!-- Linker pijl --> <button onclick="previousVideo()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); "> ← </button> <!-- Video's --> <div id="videoContainer" style="display: flex; gap: 20px; flex: 1; min-width: 0;"> <video src="11.mp4" autoplay muted loop playsinline></video> <video src="12.mp4" autoplay muted loop playsinline></video> <video src="13.mp4" autoplay muted loop playsinline></video> </div> <!-- Rechter pijl --> <button onclick="nextVideo()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); "> → </button> </div> <script> const videos = document.querySelectorAll("#videoContainer video"); let activeVideo = 0; function updateVideos() { videos.forEach((video, index) => { video.style.width = "calc((100% - 40px) / 3)"; video.style.aspectRatio = "1 / 1"; video.style.objectFit = "cover"; video.style.transition = "filter 0.3s ease"; if (index === activeVideo) { video.style.filter = "none"; } else { video.style.filter = "blur(15px)"; } }); } function nextVideo() { activeVideo = (activeVideo + 1) % videos.length; updateVideos(); } function previousVideo() { activeVideo = (activeVideo - 1 + videos.length) % videos.length; updateVideos(); } updateVideos(); </script>
-<!-- RIJ 2: 22, 23, 24 --> <div style="display: flex; align-items: center; gap: 15px; padding: 20px; box-sizing: border-box; width: 100%;"> <button onclick="previousVideo2()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); ">←</button> <div id="videoContainer2" style="display: flex; gap: 20px; flex: 1; min-width: 0;"> <video src="20.mp4" autoplay muted loop playsinline></video> <video src="23.mp4" autoplay muted loop playsinline></video> <video src="24.mp4" autoplay muted loop playsinline></video> </div> <button onclick="nextVideo2()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); ">→</button> </div>
-<!-- RIJ 3: 33, 34, 35 --> <div style="display: flex; align-items: center; gap: 15px; padding: 20px; box-sizing: border-box; width: 100%;"> <button onclick="previousVideo3()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); ">←</button> <div id="videoContainer3" style="display: flex; gap: 20px; flex: 1; min-width: 0;"> <video src="33.mp4" autoplay muted loop playsinline></video> <video src="34.mp4" autoplay muted loop playsinline></video> <video src="35.mp4" autoplay muted loop playsinline></video> </div> <button onclick="nextVideo3()" style=" flex: 0 0 50px; width: 50px; height: 50px; border-radius: 50%; border: none; background: white; color: black; font-size: 28px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 10px rgba(0,0,0,0.15); ">→</button> </div> <script> /* RIJ 1 */ const videos1 = document.querySelectorAll("#videoContainer1 video"); let activeVideo1 = 0; function updateVideos1() { videos1.forEach((video, index) => { video.style.width = "calc((100% - 40px) / 3)"; video.style.aspectRatio = "1 / 1"; video.style.objectFit = "cover"; video.style.transition = "filter 0.3s ease"; video.style.filter = index === activeVideo1 ? "none" : "blur(15px)"; }); } function nextVideo1() { activeVideo1 = (activeVideo1 + 1) % videos1.length; updateVideos1(); } function previousVideo1() { activeVideo1 = (activeVideo1 - 1 + videos1.length) % videos1.length; updateVideos1(); } /* RIJ 2 */ const videos2 = document.querySelectorAll("#videoContainer2 video"); let activeVideo2 = 0; function updateVideos2() { videos2.forEach((video, index) => { video.style.width = "calc((100% - 40px) / 3)"; video.style.aspectRatio = "1 / 1"; video.style.objectFit = "cover"; video.style.transition = "filter 0.3s ease"; video.style.filter = index === activeVideo2 ? "none" : "blur(15px)"; }); } function nextVideo2() { activeVideo2 = (activeVideo2 + 1) % videos2.length; updateVideos2(); } function previousVideo2() { activeVideo2 = (activeVideo2 - 1 + videos2.length) % videos2.length; updateVideos2(); } /* RIJ 3 */ const videos3 = document.querySelectorAll("#videoContainer3 video"); let activeVideo3 = 0; function updateVideos3() { videos3.forEach((video, index) => { video.style.width = "calc((100% - 40px) / 3)"; video.style.aspectRatio = "1 / 1"; video.style.objectFit = "cover"; video.style.transition = "filter 0.3s ease"; video.style.filter = index === activeVideo3 ? "none" : "blur(15px)"; }); } function nextVideo3() { activeVideo3 = (activeVideo3 + 1) % videos3.length; updateVideos3(); } function previousVideo3() { activeVideo3 = (activeVideo3 - 1 + videos3.length) % videos3.length; updateVideos3(); } /* Start */ updateVideos1(); updateVideos2(); updateVideos3(); </script>
-</div>
-</div>
-    <!--------------------------------------------------------------------------------------------------------------------------->
-<div style="background-color: #cccccc;">    
-    <h1 style="margin: 20px 0 20px 20px;">School opdrachten</h1>
-        <p style="margin: 20px 0 20px 20px;">Dit zijn twee schoolopdrachten die in groep gemaakt zijn. Ik stond bij beide projecten in voor het beeld; Van maken van een schotlist of storryboard tot het camerawerk.</p>
-<div style="display: flex; gap: 20px; padding: 20px; box-sizing: border-box; width: 100%;">
+    const videos =
+        document.querySelectorAll(
+            "#" + containerId + " video"
+        );
 
-  <iframe 
-    src="https://www.youtube.com/embed/uWyOoURfJVA"
-    style="flex: 1; width: 50%; aspect-ratio: 16 / 9; border: none;"
-    allowfullscreen>
-  </iframe>
+    let activeVideo = 0;
 
-  <iframe 
-    src="https://www.youtube.com/embed/cvd69bk5qXo"
-    style="flex: 1; width: 50%; aspect-ratio: 16 / 9; border: none;"
-    allowfullscreen>
-  </iframe>
-</div>
-</div>
- 
-    
+
+    function updateVideos() {
+
+        videos.forEach((video, index) => {
+
+            if (index === activeVideo) {
+
+                video.style.filter = "none";
+                video.style.transform = "scale(1)";
+
+            } else {
+
+                video.style.filter = "blur(15px)";
+                video.style.transform = "scale(0.98)";
+
+            }
+
+        });
+
+    }
+
+
+    return {
+
+        next: function () {
+
+            activeVideo =
+                (activeVideo + 1) % videos.length;
+
+            updateVideos();
+
+        },
+
+
+        previous: function () {
+
+            activeVideo =
+                (activeVideo - 1 + videos.length)
+                % videos.length;
+
+            updateVideos();
+
+        },
+
+
+        start: function () {
+
+            updateVideos();
+
+        }
+
+    };
+
+}
+
+
+
+/* =========================================================
+   RIJEN ACTIVEREN
+========================================================= */
+
+const row1 = setupVideoRow("videoContainer1");
+const row2 = setupVideoRow("videoContainer2");
+const row3 = setupVideoRow("videoContainer3");
+
+
+function nextVideo1() {
+    row1.next();
+}
+
+function previousVideo1() {
+    row1.previous();
+}
+
+
+function nextVideo2() {
+    row2.next();
+}
+
+function previousVideo2() {
+    row2.previous();
+}
+
+
+function nextVideo3() {
+    row3.next();
+}
+
+function previousVideo3() {
+    row3.previous();
+}
+
+
+row1.start();
+row2.start();
+row3.start();
+
+
+</script>
+
+
 </body>
 </html>
+```
